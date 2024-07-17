@@ -27,17 +27,17 @@ public class WoofworkoutApplication {
 		System.out.println("Staarted....");
 	}
 
-
-    // @GetMapping("message")
-    // public Message getMessage () {
-    // 	return new Message(LocalDateTime.now(), "Hola mundo");
-    // }
-
+    
     @Bean
     CommandLineRunner demo() {
         return (args) -> {
             conexionBD.connect();
         };
     }
+    
+    // @GetMapping("message")
+    // public Message getMessage () {
+    // 	return new Message(LocalDateTime.now(), "Hola mundo");
+    // }
 	
 }
