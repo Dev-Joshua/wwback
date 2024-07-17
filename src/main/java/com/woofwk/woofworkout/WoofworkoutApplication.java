@@ -1,7 +1,5 @@
 package com.woofwk.woofworkout;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,10 +9,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.woofwk.woofworkout.models.Message;
 import com.woofwk.woofworkout.web.controllers.ConexionBD;
-
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 
@@ -33,13 +28,13 @@ public class WoofworkoutApplication {
 	}
 
 
-	// @GetMapping("message")
-	// public Message getMessage () {
-	// 	return new Message(LocalDateTime.now(), "Hola mundo");
-	// }
+    // @GetMapping("message")
+    // public Message getMessage () {
+    // 	return new Message(LocalDateTime.now(), "Hola mundo");
+    // }
 
-	@Bean
-    public CommandLineRunner demo() {
+    @Bean
+    CommandLineRunner demo() {
         return (args) -> {
             conexionBD.connect();
         };

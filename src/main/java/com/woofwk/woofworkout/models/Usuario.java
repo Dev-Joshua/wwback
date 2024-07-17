@@ -1,7 +1,5 @@
 package com.woofwk.woofworkout.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,8 +9,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
+
     @Id
     private Long id_usuario;
+    
     private String nombre;
     private String apellidos;
     private String documento_identidad;
