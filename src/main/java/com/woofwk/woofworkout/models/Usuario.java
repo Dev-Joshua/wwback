@@ -1,9 +1,14 @@
 package com.woofwk.woofworkout.models;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,10 +29,10 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Role rol;
 
-    private Long mascota_id;
-    
-    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Mascota> mascotas;
 
+    
     public enum Role {
         CLIENTE, ENTRENADOR, PASEADOR, CUIDADOR
     }
@@ -86,11 +91,11 @@ public class Usuario {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-    public Long getMascota_id() {
-        return mascota_id;
-    }
-    public void setMascota_id(Long mascota_id) {
-        this.mascota_id = mascota_id;
-    }
+    // public Long getMascota_id() {
+    //     return mascota_id;
+    // }
+    // public void setMascota_id(Long mascota_id) {
+    //     this.mascota_id = mascota_id;
+    // }
  
 }

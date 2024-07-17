@@ -29,6 +29,7 @@ public class Solicitud {
     private Mascota mascota;
    
     private String estado;
+
     
 
     public Long getId_solicitud() {

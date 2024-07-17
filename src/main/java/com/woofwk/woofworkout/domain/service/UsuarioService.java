@@ -13,20 +13,45 @@ import java.util.List;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
-
+    
+    //Read
     public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    // public Usuario getUsuarioById(Long id) {
-    //     return usuarioRepository.findById(id).orElse(null);
-    // }
+    public Usuario getUsuarioById(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
 
-    // public Usuario saveUsuario(Usuario usuario) {
-    //     return usuarioRepository.save(usuario);
-    // }
+    //Create
+    public Usuario saveUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
 
-    // public void deleteUsuario(Long id) {
-    //     usuarioRepository.deleteById(id);
-    // }
+    //Update
+    public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        if (usuario != null) {
+            usuario.setNombre(usuarioDetails.getNombre());
+            usuario.setApellidos(usuarioDetails.getApellidos());
+            usuario.setEmail(usuarioDetails.getEmail());
+            usuario.setContrasena(usuarioDetails.getContrasena());
+            usuario.setDireccion(usuarioDetails.getDireccion());
+            usuario.setDocumento_identidad(usuarioDetails.getDocumento_identidad());
+            usuario.setCelular(usuarioDetails.getCelular());
+            usuario.setRol(usuarioDetails.getRol());
+            return usuarioRepository.save(usuario);
+        }
+        return null;
+    }
+
+    //Delete
+    public boolean deleteUsuario(Long id) {
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        if (usuario != null) {
+            usuarioRepository.delete(usuario);
+            return true;
+        }
+        return false;
+    }
 }
