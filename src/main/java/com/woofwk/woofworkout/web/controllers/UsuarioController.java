@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.woofwk.woofworkout.domain.service.MascotaService;
 import com.woofwk.woofworkout.domain.service.UsuarioService;
+import com.woofwk.woofworkout.models.Mascota;
 import com.woofwk.woofworkout.models.Usuario;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private MascotaService mascotaService;
 
     @GetMapping
     public List<Usuario> getAllData() {
@@ -56,4 +61,26 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{id}/mascotas")
+    public ResponseEntity<List<Mascota>> obtenerMascotasPorUsuario(@PathVariable Long id) {
+        Usuario usuario = usuarioService.getUsuarioById(id);
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(usuario.getMascotas());
+    }
+
+    @PostMapping("/{id}/mascotas")
+    public ResponseEntity<Mascota> crearMascota(@PathVariable Long id, @RequestBody Mascota mascota) {
+        Usuario usuario = usuarioService.getUsuarioById(id);
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        mascota.setUsuario(usuario);
+        Mascota nuevaMascota = mascotaService.createMascota(mascota);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMascota);
+    }
+
+
 }

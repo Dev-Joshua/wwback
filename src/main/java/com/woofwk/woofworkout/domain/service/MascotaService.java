@@ -19,7 +19,7 @@ public class MascotaService {
         return mascotaRepository.findAll();
     }
 
-     //Obtener mascota por ID
+    //Obtener mascota por ID
     public Mascota getMascotaById(Long id) {
         return mascotaRepository.findById(id).orElse(null);
     }
@@ -37,7 +37,12 @@ public class MascotaService {
             mascota.setTipo_mascota(mascotaDetails.getTipo_mascota());
             mascota.setRaza(mascotaDetails.getRaza());
             mascota.setEdad(mascotaDetails.getEdad());
-            mascota.setUsuario(mascotaDetails.getUsuario());
+            mascota.setPeso(mascotaDetails.getPeso());
+            mascota.setEsterilizado(mascotaDetails.getEsterilizado());
+            mascota.setDescripcion_mascota(mascotaDetails.getDescripcion_mascota());
+            mascota.setInfo_cuidado(mascotaDetails.getInfo_cuidado());
+            // mascota.setUsuario(mascotaDetails.getUsuario());
+
             return mascotaRepository.save(mascota);
         }
         return null;

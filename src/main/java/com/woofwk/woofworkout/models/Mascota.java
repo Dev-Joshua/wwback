@@ -1,6 +1,14 @@
 package com.woofwk.woofworkout.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.woofwk.woofworkout.models.Usuario.Role;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -11,25 +19,63 @@ import jakarta.persistence.Table;
 public class Mascota {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_mascota")
     private Long id_mascota;
     
-    private String tipo_mascota;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_mascota")
+    private Tipo tipo_mascota;
+
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "edad")
     private String edad;
+
+    @Column(name = "raza")
     private String raza;
-    private Float peso;
+
+    @Column(name = "peso")
+    private Double peso;
+
+    @Column(name = "tamano")
     private String tamano;
-    private String sexo;
-    private String esterilizado;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexo")
+    private Sex sexo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "esterilizado")
+    private Esterilizado esterilizado;
+
+    @Column(name = "descripcion_mascota")
     private String descripcion_mascota;
+
+    @Column(name = "info_cuidado")
     private String info_cuidado;
+
+    @Column(name = "foto_mascota")
     private String foto_mascota;
     
-
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonBackReference
     private Usuario usuario;
 
+
+    public enum Tipo {
+        Canino, Felino
+    }
+
+    public enum Sex {
+        Masculino, Femenino
+    }
+
+    public enum Esterilizado {
+        Si, No
+    }
 
     public Long getId_mascota() {
         return id_mascota;
@@ -41,12 +87,12 @@ public class Mascota {
     }
 
 
-    public String getTipo_mascota() {
+    public Tipo getTipo_mascota() {
         return tipo_mascota;
     }
 
 
-    public void setTipo_mascota(String tipo_mascota) {
+    public void setTipo_mascota(Tipo tipo_mascota) {
         this.tipo_mascota = tipo_mascota;
     }
 
@@ -81,12 +127,12 @@ public class Mascota {
     }
 
 
-    public Float getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
 
-    public void setPeso(Float peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
@@ -101,22 +147,22 @@ public class Mascota {
     }
 
 
-    public String getSexo() {
+    public Sex getSexo() {
         return sexo;
     }
 
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sex sexo) {
         this.sexo = sexo;
     }
 
 
-    public String getEsterilizado() {
+    public Esterilizado getEsterilizado() {
         return esterilizado;
     }
 
 
-    public void setEsterilizado(String esterilizado) {
+    public void setEsterilizado(Esterilizado esterilizado) {
         this.esterilizado = esterilizado;
     }
 

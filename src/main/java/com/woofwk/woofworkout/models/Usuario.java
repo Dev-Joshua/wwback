@@ -1,13 +1,22 @@
 package com.woofwk.woofworkout.models;
 
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -16,23 +25,47 @@ import jakarta.persistence.Table;
 public class Usuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long id_usuario;
     
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "apellidos")
     private String apellidos;
+
+    @Column(name = "documento_identidad")
     private String documento_identidad;
+
+    @Column(name = "direccion")
     private String direccion;
+
+    @Column(name = "celular")
     private String celular;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "contrasena")
     private String contrasena;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "rol")
     private Role rol;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Mascota> mascotas;
 
-    
+    public List<Mascota> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<Mascota> mascotas) {
+        this.mascotas = mascotas;
+    }
+
     public enum Role {
         CLIENTE, ENTRENADOR, PASEADOR, CUIDADOR
     }
