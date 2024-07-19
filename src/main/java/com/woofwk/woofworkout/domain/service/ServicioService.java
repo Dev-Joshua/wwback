@@ -12,21 +12,21 @@ import com.woofwk.woofworkout.models.Servicio;
 public class ServicioService {
 
     @Autowired
-    private ServicioRepository servicioRepository;
+    private ServicioRepository serviceRepository;
 
     public List<Servicio> findAll() {
-        return servicioRepository.findAll();
+        return serviceRepository.findAll();
     }
 
     public Servicio findById(Long id) {
-        return servicioRepository.findById(id).orElse(null);
+        return serviceRepository.findById(id).orElse(null);
     }
 
     public Servicio save(Servicio servicio) {
-        return servicioRepository.save(servicio);
+        return serviceRepository.save(servicio);
     }
 
     public void deleteById(Long id) {
-        servicioRepository.deleteById(id);
+        serviceRepository.deleteById(id);
     }
 }

@@ -12,25 +12,25 @@ import java.util.List;
 @Service
 public class UsuarioService {
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepository userRepository;
     
     //Read
-    public List<Usuario> getAllUsuarios() {
-        return usuarioRepository.findAll();
+    public List<Usuario> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public Usuario getUsuarioById(Long id) {
-        return usuarioRepository.findById(id).orElse(null);
+    public Usuario getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     //Create
-    public Usuario saveUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public Usuario saveUser(Usuario usuario) {
+        return userRepository.save(usuario);
     }
 
     //Update
-    public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+    public Usuario updateUser(Long id, Usuario usuarioDetails) {
+        Usuario usuario = userRepository.findById(id).orElse(null);
         if (usuario != null) {
             usuario.setNombre(usuarioDetails.getNombre());
             usuario.setApellidos(usuarioDetails.getApellidos());
@@ -40,16 +40,16 @@ public class UsuarioService {
             usuario.setDocumento_identidad(usuarioDetails.getDocumento_identidad());
             usuario.setCelular(usuarioDetails.getCelular());
             usuario.setRol(usuarioDetails.getRol());
-            return usuarioRepository.save(usuario);
+            return userRepository.save(usuario);
         }
         return null;
     }
 
     //Delete
-    public boolean deleteUsuario(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+    public boolean deleteUser(Long id) {
+        Usuario usuario = userRepository.findById(id).orElse(null);
         if (usuario != null) {
-            usuarioRepository.delete(usuario);
+            userRepository.delete(usuario);
             return true;
         }
         return false;

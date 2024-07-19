@@ -2,6 +2,8 @@ package com.woofwk.woofworkout.web.controllers;
 
 import java.util.List;
 
+import javax.swing.text.html.parser.Entity;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,35 +23,57 @@ import com.woofwk.woofworkout.models.Mascota;
 @RequestMapping("/mascotas")
 public class MascotaController {
      @Autowired
-    private MascotaService mascotaService;
+    private MascotaService petService;
 
+    // Metodos
     @GetMapping
     public List<Mascota> getAllData() {
-        return mascotaService.getAllMascotas();
+        return petService.getAllPets();
     }
 
     @GetMapping("/{id}")
     public Mascota getMascotaById(@PathVariable Long id) {
-        return mascotaService.getMascotaById(id);
+        return petService.getPetById(id);
     }
 
     @PostMapping
     public Mascota createMascota(@RequestBody Mascota mascota) {
-        return mascotaService.createMascota(mascota);
+        return petService.createPet(mascota);
     }
 
     @PutMapping("/{id}")
-    public Mascota updateMascota(@PathVariable Long id, @RequestBody Mascota mascotaDetails) {
-        return mascotaService.updateMascota(id, mascotaDetails);
+    public ResponseEntity<String>  updateMascota(@PathVariable Long id, @RequestBody Mascota mascotaDetails) {
+        Mascota mascota = petService.getPetById(id);
+        if (mascota == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mascota no encontrada");
+        }
+        
+        mascota.setTipo_mascota(mascotaDetails.getTipo_mascota());
+        mascota.setNombre(mascotaDetails.getNombre());
+        mascota.setEdad(mascotaDetails.getEdad());
+        mascota.setRaza(mascotaDetails.getRaza());
+        mascota.setPeso(mascotaDetails.getPeso());
+        mascota.setTamano(mascotaDetails.getTamano());
+        mascota.setSexo(mascotaDetails.getSexo());
+        mascota.setEsterilizado(mascotaDetails.getEsterilizado());
+        mascota.setDescripcion_mascota(mascotaDetails.getDescripcion_mascota());
+        mascota.setInfo_cuidado(mascotaDetails.getInfo_cuidado());
+        mascota.setFoto_mascota(mascotaDetails.getFoto_mascota());
+
+        petService.updatePet(id, mascotaDetails);
+       
+        return ResponseEntity.ok("Mascota actualizada exitosamente");
+       
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMascota(@PathVariable Long id) {
-        boolean isDeleted = mascotaService.deleteMascota(id);
-        if (isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> deleteMascota(@PathVariable Long id) {
+        Mascota mascota = petService.getPetById(id);
+        if (mascota == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mascota no encontrada");
         }
-    }
+        
+        petService.deletePet(id);
+        return ResponseEntity.ok("Mascota eliminada exitosamente");
+        }
 }

@@ -17,13 +17,13 @@ public class SolicitudService {
         return solicitudRepository.findAll();
     }
 
-    // public Solicitud findById(Long id) {
-    //     return solicitudRepository.findById(id).orElse(null);
-    // }
+    public Solicitud findById(Long id) {
+        return solicitudRepository.findById(id).orElse(null);
+    }
 
-    // public Solicitud save(Solicitud solicitud) {
-    //     return solicitudRepository.save(solicitud);
-    // }
+    public Solicitud save(Solicitud solicitud) {
+        return solicitudRepository.save(solicitud);
+    }
 
     // public void deleteById(Long id) {
     //     solicitudRepository.deleteById(id);

@@ -11,21 +11,21 @@ import com.woofwk.woofworkout.models.Pago;
 @Service
 public class PagoService {
     @Autowired
-    private PagoRepository pagoRepository;
+    private PagoRepository payRepository;
 
-    public List<Pago> getAllPagos() {
-        return pagoRepository.findAll();
+    public List<Pago> getAllPays() {
+        return payRepository.findAll();
     }
 
-    // public Pago getPagoById(Long id) {
-    //     return pagoRepository.findById(id).orElse(null);
-    // }
+    public Pago getPayById(Long id) {
+        return payRepository.findById(id).orElse(null);
+    }
 
-    // public Pago savePago(Pago pago) {
-    //     return pagoRepository.save(pago);
-    // }
+    public Pago savePay(Pago pago) {
+        return payRepository.save(pago);
+    }
 
     // public void deletePago(Long id) {
-    //     pagoRepository.deleteById(id);
+    //     payRepository.deleteById(id);
     // }
 }

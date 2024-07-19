@@ -12,47 +12,47 @@ import com.woofwk.woofworkout.models.Mascota;
 public class MascotaService {
 
     @Autowired
-    private MascotaRepository mascotaRepository;
+    private MascotaRepository petRepository;
 
     //Obtener mascotas
-    public List<Mascota> getAllMascotas() {
-        return mascotaRepository.findAll();
+    public List<Mascota> getAllPets() {
+        return petRepository.findAll();
     }
 
     //Obtener mascota por ID
-    public Mascota getMascotaById(Long id) {
-        return mascotaRepository.findById(id).orElse(null);
+    public Mascota getPetById(Long id) {
+        return petRepository.findById(id).orElse(null);
     }
 
     //Crear una nueva mascota
-    public Mascota createMascota(Mascota mascota) {
-        return mascotaRepository.save(mascota);
+    public Mascota createPet(Mascota mascota) {
+        return petRepository.save(mascota);
     }
 
     //Actualizar una mascota existente
-    public Mascota updateMascota(Long id, Mascota mascotaDetails) {
-        Mascota mascota = mascotaRepository.findById(id).orElse(null);
-        if (mascota != null) {
-            mascota.setNombre(mascotaDetails.getNombre());
-            mascota.setTipo_mascota(mascotaDetails.getTipo_mascota());
-            mascota.setRaza(mascotaDetails.getRaza());
-            mascota.setEdad(mascotaDetails.getEdad());
-            mascota.setPeso(mascotaDetails.getPeso());
-            mascota.setEsterilizado(mascotaDetails.getEsterilizado());
-            mascota.setDescripcion_mascota(mascotaDetails.getDescripcion_mascota());
-            mascota.setInfo_cuidado(mascotaDetails.getInfo_cuidado());
+    public Mascota updatePet(Long id, Mascota mascotaDetails) {
+        Mascota pet = petRepository.findById(id).orElse(null);
+        if (pet != null) {
+            pet.setNombre(mascotaDetails.getNombre());
+            pet.setTipo_mascota(mascotaDetails.getTipo_mascota());
+            pet.setRaza(mascotaDetails.getRaza());
+            pet.setEdad(mascotaDetails.getEdad());
+            pet.setPeso(mascotaDetails.getPeso());
+            pet.setEsterilizado(mascotaDetails.getEsterilizado());
+            pet.setDescripcion_mascota(mascotaDetails.getDescripcion_mascota());
+            pet.setInfo_cuidado(mascotaDetails.getInfo_cuidado());
             // mascota.setUsuario(mascotaDetails.getUsuario());
 
-            return mascotaRepository.save(mascota);
+            return petRepository.save(pet);
         }
         return null;
     }
 
     //Eliminar una mascota
-    public boolean deleteMascota(Long id) {
-        Mascota mascota = mascotaRepository.findById(id).orElse(null);
-        if (mascota != null) {
-            mascotaRepository.delete(mascota);
+    public boolean deletePet(Long id) {
+        Mascota pet = petRepository.findById(id).orElse(null);
+        if (pet != null) {
+            petRepository.delete(pet);
             return true;
         }
         return false;

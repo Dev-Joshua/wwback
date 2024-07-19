@@ -17,29 +17,34 @@ import java.util.List;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioService userService;
 
     @Autowired
-    private MascotaService mascotaService;
+    private MascotaService petServicce;
 
+
+    // Metodos
     @GetMapping
     public List<Usuario> getAllData() {
-        return usuarioService.getAllUsuarios();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Usuario getUsuarioById(@PathVariable Long id) {
-        return usuarioService.getUsuarioById(id);
+    public Usuario getUseroById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.saveUsuario(usuario);
+    public Usuario createUs(@RequestBody Usuario usuario) {
+        return userService.saveUser(usuario);
     }
 
     @PutMapping("/{id}")
-    public Usuario updateUsuario(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
-        Usuario usuario = usuarioService.getUsuarioById(id);
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
+       Usuario usuario = userService.getUserById(id);
+       if (usuario == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+    }
 
         usuario.setNombre(usuarioDetails.getNombre());
         usuario.setApellidos(usuarioDetails.getApellidos());
@@ -47,24 +52,28 @@ public class UsuarioController {
         usuario.setDireccion(usuarioDetails.getDireccion());
         usuario.setCelular(usuarioDetails.getCelular());
         usuario.setEmail(usuarioDetails.getEmail());
+        usuario.setContrasena(usuarioDetails.getContrasena());
         usuario.setRol(usuarioDetails.getRol());
 
-        return usuarioService.saveUsuario(usuario);
+        userService.saveUser(usuario);
+
+        return ResponseEntity.ok("Usuario actualizado exitosamente");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        boolean isDeleted = usuarioService.deleteUsuario(id);
-        if (isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
+        Usuario usuario = userService.getUserById(id);
+        if (usuario == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         }
-    }
+    
+        userService.deleteUser(id);
+        return ResponseEntity.ok("Usuario eliminado exitosamente");
+        }
 
     @GetMapping("/{id}/mascotas")
     public ResponseEntity<List<Mascota>> obtenerMascotasPorUsuario(@PathVariable Long id) {
-        Usuario usuario = usuarioService.getUsuarioById(id);
+        Usuario usuario = userService.getUserById(id);
         if (usuario == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -73,12 +82,13 @@ public class UsuarioController {
 
     @PostMapping("/{id}/mascotas")
     public ResponseEntity<Mascota> crearMascota(@PathVariable Long id, @RequestBody Mascota mascota) {
-        Usuario usuario = usuarioService.getUsuarioById(id);
+        Usuario usuario = userService.getUserById(id);
         if (usuario == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         mascota.setUsuario(usuario);
-        Mascota nuevaMascota = mascotaService.createMascota(mascota);
+        Mascota nuevaMascota = petServicce.createPet(mascota);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMascota);
     }
 

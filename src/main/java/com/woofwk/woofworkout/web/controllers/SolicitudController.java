@@ -18,22 +18,23 @@ import com.woofwk.woofworkout.models.Solicitud;
 @RequestMapping("/solicitudes")
 public class SolicitudController {
     @Autowired
-    private SolicitudService solicitudService;
+    private SolicitudService requestServicce;
 
+    // Metodos
     @GetMapping
-    public List<Solicitud> getAllSolicitudes() {
-        return solicitudService.findAll();
+    public List<Solicitud> getAllRequests() {
+        return requestServicce.findAll();
     }
 
-    // @GetMapping("/{id}")
-    // public Solicitud getSolicitudById(@PathVariable Long id) {
-    //     return solicitudService.findById(id);
-    // }
+    @GetMapping("/{id}")
+    public Solicitud getRequestById(@PathVariable Long id) {
+        return requestServicce.findById(id);
+    }
 
-    // @PostMapping
-    // public Solicitud createSolicitud(@RequestBody Solicitud solicitud) {
-    //     return solicitudService.save(solicitud);
-    // }
+    @PostMapping
+    public Solicitud createRequest(@RequestBody Solicitud solicitud) {
+        return requestServicce.save(solicitud);
+    }
 
     // @DeleteMapping("/{id}")
     // public void deleteSolicitud(@PathVariable Long id) {

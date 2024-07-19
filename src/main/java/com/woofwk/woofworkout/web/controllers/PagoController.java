@@ -18,25 +18,26 @@ import com.woofwk.woofworkout.models.Pago;
 @RequestMapping("/pagos")
 public class PagoController {
      @Autowired
-    private PagoService pagoService;
+    private PagoService payService;
 
+    //Metodos
     @GetMapping
-    public List<Pago> getAllPagos() {
-        return pagoService.getAllPagos();
+    public List<Pago> getAllPayments() {
+        return payService.getAllPays();
     }
 
-    // @GetMapping("/{id}")
-    // public Pago getPagoById(@PathVariable Long id) {
-    //     return pagoService.getPagoById(id);
-    // }
+    @GetMapping("/{id}")
+    public Pago getPaymentById(@PathVariable Long id) {
+        return payService.getPayById(id);
+    }
 
-    // @PostMapping
-    // public Pago savePago(@RequestBody Pago pago) {
-    //     return pagoService.savePago(pago);
-    // }
+    @PostMapping
+    public Pago savePayment(@RequestBody Pago pago) {
+        return payService.savePay(pago);
+    }
 
     // @DeleteMapping("/{id}")
     // public void deletePago(@PathVariable Long id) {
-    //     pagoService.deletePago(id);
+    //     payService.deletePago(id);
     // }
 }
