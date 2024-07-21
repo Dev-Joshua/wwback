@@ -2,35 +2,65 @@ package com.woofwk.woofworkout.models;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "solicitudes")
 public class Solicitud {
+
+    //Variables
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_solicitud")
     private Long id_solicitud;
 
     private LocalDateTime fecha_solicitud;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    // @ManyToOne
+    // @JoinColumn(name = "cliente_id")
+    // @JsonManagedReference("usuario_solicitud")
+    // private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "servicio_id")
+    @JsonBackReference("servicio-solicitud")
     private Servicio servicio;
 
     @ManyToOne
     @JoinColumn(name = "mascota_id")
+    @JsonBackReference("mascota-solicitud")
     private Mascota mascota;
+
+    @OneToOne(mappedBy = "solicitud", cascade = CascadeType.ALL)
+    @JsonManagedReference("pago-solicitud")
+    private Pago pago;
    
+    @Column(name = "estado")
     private String estado;
 
-    
+    // Getters & Setters
+    public Pago getPago() {
+        return pago;
+    }
+
+    public void setPago(Pago pago) {
+        this.pago = pago;
+    }
 
     public Long getId_solicitud() {
         return id_solicitud;
@@ -48,13 +78,13 @@ public class Solicitud {
         this.fecha_solicitud = fecha_solicitud;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    // public Usuario getUsuario() {
+    //     return usuario;
+    // }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    // public void setUsuario(Usuario usuario) {
+    //     this.usuario = usuario;
+    // }
 
     public Servicio getServicio() {
         return servicio;
@@ -80,5 +110,5 @@ public class Solicitud {
         this.estado = estado;
     }
 
-    
+
 }

@@ -32,8 +32,8 @@ public class PagoController {
     }
 
     @PostMapping
-    public Pago savePayment(@RequestBody Pago pago) {
-        return payService.savePay(pago);
+    public Pago savePayment(@RequestBody Pago pay) {
+        return payService.savePay(pay);
     }
 
     // @DeleteMapping("/{id}")

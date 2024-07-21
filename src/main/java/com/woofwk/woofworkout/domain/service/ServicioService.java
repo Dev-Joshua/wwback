@@ -1,6 +1,7 @@
 package com.woofwk.woofworkout.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class ServicioService {
     }
 
     public Servicio findById(Long id) {
-        return serviceRepository.findById(id).orElse(null);
+         Optional<Servicio> servicio = serviceRepository.findById(id);
+        return servicio.orElse(null);
     }
 
     public Servicio save(Servicio servicio) {

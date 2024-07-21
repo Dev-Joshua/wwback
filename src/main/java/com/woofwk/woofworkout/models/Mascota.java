@@ -1,23 +1,31 @@
 package com.woofwk.woofworkout.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.woofwk.woofworkout.models.Usuario.Role;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "mascotas")
 public class Mascota {
 
+    // Variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mascota")
@@ -61,8 +69,12 @@ public class Mascota {
     
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonBackReference
+    @JsonBackReference("usuario-mascota")
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("mascota-solicitud")
+    private Set<Solicitud> solicitudes = new HashSet<>();
 
 
     public enum Tipo {
@@ -77,10 +89,10 @@ public class Mascota {
         Si, No
     }
 
+    // Getters & Setters
     public Long getId_mascota() {
         return id_mascota;
     }
-
 
     public void setId_mascota(Long id_mascota) {
         this.id_mascota = id_mascota;
@@ -206,8 +218,18 @@ public class Mascota {
         this.usuario = usuario;
     }
 
-    
-    
+    public Set<Solicitud> getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(Set<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
+    }
+
+    // public Object getId() {
+    //     throw new UnsupportedOperationException("Unimplemented method 'getId'");
+    // }
+
 
     
 }

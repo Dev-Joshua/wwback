@@ -2,25 +2,42 @@ package com.woofwk.woofworkout.models;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pagos")
 public class Pago {
+
+    //Variables
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pago")
     private Long id_pago;
 
-    private double monto;
+    private Float monto;
     private LocalDateTime fechaPago;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "solicitud_id")
+    @JsonBackReference("pago-solicitud")
     private Solicitud solicitud;
+    
+    // @ManyToOne
+    // @JoinColumn(name = "solicitud_id")
+    // private Solicitud solicitud;
 
+    // Getters & Setters
     public Long getId_pago() {
         return id_pago;
     }
@@ -29,11 +46,11 @@ public class Pago {
         this.id_pago = id_pago;
     }
 
-    public double getMonto() {
+    public Float getMonto() {
         return monto;
     }
 
-    public void setMonto(double monto) {
+    public void setMonto(Float monto) {
         this.monto = monto;
     }
 

@@ -11,6 +11,7 @@ import com.woofwk.woofworkout.models.Mascota;
 import com.woofwk.woofworkout.models.Usuario;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -34,9 +35,10 @@ public class UsuarioController {
         return userService.getUserById(id);
     }
 
-    @PostMapping
-    public Usuario createUs(@RequestBody Usuario usuario) {
-        return userService.saveUser(usuario);
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+        Usuario nuevoUsuario = userService.createUser(usuario);
+        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -55,7 +57,7 @@ public class UsuarioController {
         usuario.setContrasena(usuarioDetails.getContrasena());
         usuario.setRol(usuarioDetails.getRol());
 
-        userService.saveUser(usuario);
+        userService.createUser(usuario);
 
         return ResponseEntity.ok("Usuario actualizado exitosamente");
     }

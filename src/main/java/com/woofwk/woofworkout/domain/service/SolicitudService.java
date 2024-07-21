@@ -11,21 +11,21 @@ import com.woofwk.woofworkout.models.Solicitud;
 @Service
 public class SolicitudService {
     @Autowired
-    private SolicitudRepository solicitudRepository;
+    private SolicitudRepository requestRepository;
 
-    public List<Solicitud> findAll() {
-        return solicitudRepository.findAll();
+    public List<Solicitud> getAll() {
+        return requestRepository.findAll();
     }
 
-    public Solicitud findById(Long id) {
-        return solicitudRepository.findById(id).orElse(null);
+    public Solicitud findByIdRequest(Long id) {
+        return requestRepository.findById(id).orElse(null);
     }
 
-    public Solicitud save(Solicitud solicitud) {
-        return solicitudRepository.save(solicitud);
+    public Solicitud createRequest(Solicitud request) {
+        return requestRepository.save(request);
     }
 
     // public void deleteById(Long id) {
-    //     solicitudRepository.deleteById(id);
+    //     requestRepository.deleteById(id);
     // }
 }

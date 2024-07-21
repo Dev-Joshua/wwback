@@ -21,8 +21,8 @@ public class PagoService {
         return payRepository.findById(id).orElse(null);
     }
 
-    public Pago savePay(Pago pago) {
-        return payRepository.save(pago);
+    public Pago savePay(Pago payment) {
+        return payRepository.save(payment);
     }
 
     // public void deletePago(Long id) {

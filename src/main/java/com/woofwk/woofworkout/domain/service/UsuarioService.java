@@ -4,8 +4,12 @@ package com.woofwk.woofworkout.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.woofwk.woofworkout.domain.repository.ServicioRepository;
 import com.woofwk.woofworkout.domain.repository.UsuarioRepository;
+import com.woofwk.woofworkout.models.Servicio;
 import com.woofwk.woofworkout.models.Usuario;
+
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -13,6 +17,9 @@ import java.util.List;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository userRepository;
+
+    @Autowired
+    private ServicioRepository servicioRepository;
     
     //Read
     public List<Usuario> getAllUsers() {
@@ -23,10 +30,37 @@ public class UsuarioService {
         return userRepository.findById(id).orElse(null);
     }
 
-    //Create
-    public Usuario saveUser(Usuario usuario) {
-        return userRepository.save(usuario);
+    @Transactional
+    public Usuario createUser(Usuario user) {
+        Usuario savedUsuario = userRepository.save(user);
+
+        Servicio servicio = null;
+        switch (user.getRol()) {
+            case PASEADOR:
+                servicio = servicioRepository.findById(1L).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+                break;
+            case CUIDADOR:
+                servicio = servicioRepository.findById(2L).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+                break;
+            case ENTRENADOR:
+                servicio = servicioRepository.findById(3L).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+                break;
+            default:
+                break;
+        }
+
+        if (servicio != null) {
+            user.getServicios().add(servicio);
+            savedUsuario = userRepository.save(user);
+        }
+
+        return savedUsuario;
     }
+
+    // //Create
+    // public Usuario saveUser(Usuario usuario) {
+    //     return userRepository.save(usuario);
+    // }
 
     //Update
     public Usuario updateUser(Long id, Usuario usuarioDetails) {
