@@ -20,7 +20,7 @@ public class ServicioService {
     }
 
     public Servicio findById(Long id) {
-         Optional<Servicio> servicio = serviceRepository.findById(id);
+        Optional<Servicio> servicio = serviceRepository.findById(id);
         return servicio.orElse(null);
     }
 

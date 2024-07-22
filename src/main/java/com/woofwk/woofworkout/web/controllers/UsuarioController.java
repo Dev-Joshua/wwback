@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
+import com.woofwk.woofworkout.domain.repository.UsuarioRepository;
 import com.woofwk.woofworkout.domain.service.MascotaService;
 import com.woofwk.woofworkout.domain.service.UsuarioService;
 import com.woofwk.woofworkout.models.Mascota;
@@ -18,6 +20,9 @@ import java.util.Set;
 public class UsuarioController {
 
     @Autowired
+    private UsuarioRepository userRepository;
+
+    @Autowired
     private UsuarioService userService;
 
     @Autowired
@@ -25,15 +30,24 @@ public class UsuarioController {
 
 
     // Metodos
-    @GetMapping
-    public List<Usuario> getAllData() {
-        return userService.getAllUsers();
+    // @GetMapping
+    // public List<Usuario> getAllData() {
+    //     return userService.getAllUsers();
+    // }
+
+    @GetMapping({"", "/"})
+    public String getAllData(Model model) {
+        List<Usuario> usuarios = userRepository.findAll();
+        model.addAttribute("usuarios", usuarios);
+        return "usuarios";
     }
+
 
     @GetMapping("/{id}")
     public Usuario getUseroById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
+    
 
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
      public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {

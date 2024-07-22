@@ -84,10 +84,14 @@ public class SolicitudController {
         request.setMascota(mascota);
         request.setEstado((String) requestPayLoad.get("estado"));
 
-        @SuppressWarnings("unchecked")
-        Map<String, Object> paymentLoad = (Map<String, Object>) requestPayLoad.get("pago");
+      
+        // Map<String, Object> paymentLoad = (Map<String, Object>) requestPayLoad.get("pago");
+        // Pago pay = new Pago();
+        // pay.setMonto(((Number) paymentLoad.get("monto")).floatValue());
+        // pay.setFechaPago(LocalDateTime.now());
+
         Pago pay = new Pago();
-        pay.setMonto(((Number) paymentLoad.get("monto")).floatValue());
+        pay.setMonto(servicio.getPrecio());
         pay.setFechaPago(LocalDateTime.now());
 
         request.setPago(pay);

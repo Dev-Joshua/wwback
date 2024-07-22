@@ -30,29 +30,8 @@ public class UsuarioService {
         return userRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public Usuario createUser(Usuario user) {
         Usuario savedUsuario = userRepository.save(user);
-
-        Servicio servicio = null;
-        switch (user.getRol()) {
-            case PASEADOR:
-                servicio = servicioRepository.findById(1L).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
-                break;
-            case CUIDADOR:
-                servicio = servicioRepository.findById(2L).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
-                break;
-            case ENTRENADOR:
-                servicio = servicioRepository.findById(3L).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
-                break;
-            default:
-                break;
-        }
-
-        if (servicio != null) {
-            user.getServicios().add(servicio);
-            savedUsuario = userRepository.save(user);
-        }
 
         return savedUsuario;
     }

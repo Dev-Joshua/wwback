@@ -27,7 +27,7 @@ public class Servicio {
     private String nombre_servicio;
 
     private String descripcion;
-    private Double precio;
+    private Float precio;
 
     @ManyToMany(mappedBy = "servicios")
     @JsonBackReference("usuario-servicio")
@@ -71,11 +71,11 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecio() {
+    public Float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(Float precio) {
         this.precio = precio;
     }
 
