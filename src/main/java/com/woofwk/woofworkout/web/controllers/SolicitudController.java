@@ -44,7 +44,7 @@ public class SolicitudController {
     // @Autowired
     // private PagoService pagoService;
 
-    // Metodos
+    // Metodos para realizar un CRUD
     @GetMapping
     public List<Solicitud> getAllRequests() {
         return requestService.getAll();

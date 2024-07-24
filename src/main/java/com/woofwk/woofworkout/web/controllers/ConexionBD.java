@@ -10,6 +10,7 @@ public class ConexionBD {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // Conexion a la Base de Datos
     public void connect() {
         try {
             jdbcTemplate.execute("SELECT 1");

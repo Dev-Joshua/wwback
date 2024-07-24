@@ -31,11 +31,7 @@ public class Solicitud {
 
     private LocalDateTime fecha_solicitud;
 
-    // @ManyToOne
-    // @JoinColumn(name = "cliente_id")
-    // @JsonManagedReference("usuario_solicitud")
-    // private Usuario usuario;
-
+    //Relaciones 
     @ManyToOne
     @JoinColumn(name = "servicio_id")
     @JsonBackReference("servicio-solicitud")

@@ -26,23 +26,33 @@ import java.util.Set;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
+    @Autowired
+    private UsuarioService userService;
+
     // @Autowired
     // private UsuarioRepository userRepository;
 
-    @Autowired
-    private UsuarioService userService;
 
     // @Autowired
     // private MascotaService petServicce;
 
 
-    // Metodos
+    // Metodos para realizar un CRUD
 
     // @GetMapping
     // public List<Usuario> getAllData() {
     //     return userService.getAllUsers();
     // }
 
+    // Metodo para mostrar el formulario de creacion
+    @GetMapping("/crear")
+    public String formCreate(Model model) {
+        UsuarioDto usuarioDto = new UsuarioDto();
+        model.addAttribute("usuarioDto", usuarioDto);
+        return "usuarios/createUser";
+    }
+
+    // Metodo para obtener los usuarios de la base de datos
     @GetMapping({"", "/"})
     public String mostrarProductos(Model model) {
         List<Usuario> usuarios = userService.getAllUsers();
@@ -64,33 +74,29 @@ public class UsuarioController {
     //     return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     // }
 
-    //  @PostMapping("/create")
-    //  public String crearUsuario(@ModelAttribute("usuarioDto") UsuarioDto usuarioDto) {
-    //     Usuario usuario = new Usuario();
+    // Metodo para crear un usuario mediante un POST desde la url indicada
+     @PostMapping("/crear")
+     public String crearUsuario(@ModelAttribute("usuarioDto") UsuarioDto usuarioDto) {
+        Usuario usuario = new Usuario();
         
-    //     // Copio los datos del DTO a la entidad Usuario
-    //     usuario.setNombre(usuarioDto.getNombre());
-    //     usuario.setApellidos(usuarioDto.getApellidos());
-    //     usuario.setDocumento_identidad(usuarioDto.getDocumento_identidad());
-    //     usuario.setDireccion(usuarioDto.getDireccion());
-    //     usuario.setCelular(usuarioDto.getCelular());
-    //     usuario.setEmail(usuarioDto.getEmail());
-    //     usuario.setContrasena(usuarioDto.getContrasena());
-    //     // usuario.setRol(usuarioDto.getRol());
+        // Copio los datos del DTO a la entidad Usuario
+        usuario.setNombre(usuarioDto.getNombre());
+        usuario.setApellidos(usuarioDto.getApellidos());
+        usuario.setDocumento_identidad(usuarioDto.getDocumento_identidad());
+        usuario.setDireccion(usuarioDto.getDireccion());
+        usuario.setCelular(usuarioDto.getCelular());
+        usuario.setEmail(usuarioDto.getEmail());
+        usuario.setContrasena(usuarioDto.getContrasena());
+        usuario.setRol(usuarioDto.getRol());
 
-    //     userService.createUser(usuario); // Guarda el usuario en la base de datos
+        // Registrar el nuevo usuario en la bd
+        userService.createUser(usuario); 
 
-    //     return "redirect:/usuarios";
-    // }
-
-    
-    @GetMapping("/crear")
-    public String formCreate(Model model) {
-        UsuarioDto usuarioDto = new UsuarioDto();
-        model.addAttribute("usuarioDto", usuarioDto);
-        return "usuarios/createUser";
+        return "redirect:/usuarios";
     }
 
+    
+   
 
     // @PutMapping("/{id}")
     // public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody Usuario usuarioDetails) {

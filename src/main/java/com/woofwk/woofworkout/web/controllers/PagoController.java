@@ -20,7 +20,7 @@ public class PagoController {
      @Autowired
     private PagoService payService;
 
-    //Metodos
+    // Metodos para realizar un CRUD
     @GetMapping
     public List<Pago> getAllPayments() {
         return payService.getAllPays();

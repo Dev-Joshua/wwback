@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 @Table(name = "servicios")
 public class Servicio {
     
-    //Variables
+    //Variables de la clase
     @Id
     private Long id_servicio;
 
@@ -29,6 +29,7 @@ public class Servicio {
     private String descripcion;
     private Float precio;
 
+    // Relaciones
     @ManyToMany(mappedBy = "servicios")
     @JsonBackReference("usuario-servicio")
     private Set<Usuario> usuarios = new HashSet<>();
@@ -38,7 +39,6 @@ public class Servicio {
     private Set<Solicitud> solicitudes = new HashSet<>();
     
     // Getters & Setters
-    
     public Long getId_servicio() {
         return id_servicio;
     }

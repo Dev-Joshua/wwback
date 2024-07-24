@@ -26,7 +26,7 @@ import jakarta.persistence.Table;
 @Table(name = "usuarios")
 public class Usuario {
 
-    //Variables
+    //Variables de la clase
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -57,6 +57,7 @@ public class Usuario {
     @Column(name = "rol")
     private Role rol;
 
+    // Relaciones
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("usuario-mascota")
     private List<Mascota> mascotas;
@@ -158,12 +159,7 @@ public class Usuario {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-    // public Long getMascota_id() {
-    //     return mascota_id;
-    // }
-    // public void setMascota_id(Long mascota_id) {
-    //     this.mascota_id = mascota_id;
-    // }
+
 
     public Role getRol() {
         return rol;
@@ -173,13 +169,6 @@ public class Usuario {
         this.rol = rol;
     }
 
-    // public Set<Solicitud> getSolicitudes() {
-    //     return solicitudes;
-    // }
-
-    //  public void setSolicitudes(Set<Solicitud> solicitudes) {
-    //     this.solicitudes = solicitudes;
-    // }
 
  
 }

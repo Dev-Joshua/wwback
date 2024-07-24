@@ -22,7 +22,7 @@ public class ServicioController {
     @Autowired
     private ServicioService serviceService;
 
-    // Metodos
+    /// Metodos para realizar un CRUD
     @GetMapping
     public List<Servicio> getAllData() {
         return serviceService.findAll();

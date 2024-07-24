@@ -25,7 +25,7 @@ import jakarta.persistence.Table;
 @Table(name = "mascotas")
 public class Mascota {
 
-    // Variables
+    // Variables de la clase
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mascota")
@@ -67,6 +67,7 @@ public class Mascota {
     @Column(name = "foto_mascota")
     private String foto_mascota;
     
+    // Relaciones
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     @JsonBackReference("usuario-mascota")

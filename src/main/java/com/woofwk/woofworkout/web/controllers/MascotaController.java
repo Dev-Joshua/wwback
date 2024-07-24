@@ -25,7 +25,7 @@ public class MascotaController {
      @Autowired
     private MascotaService petService;
 
-    // Metodos
+    // Metodos para realizar un CRUD
     @GetMapping
     public List<Mascota> getAllData() {
         return petService.getAllPets();

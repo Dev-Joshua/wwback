@@ -1,8 +1,7 @@
 package com.woofwk.woofworkout.domain.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.woofwk.woofworkout.models.Usuario.Role;
+
 
 public class UsuarioDto {
     private String nombre;
@@ -12,18 +11,10 @@ public class UsuarioDto {
     private String celular;
     private String email;
     private String contrasena;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "rol")
     private Role rol;
 
     
-    public enum Role {
-        CLIENTE, ENTRENADOR, PASEADOR, CUIDADOR
-    }
-
     
-
     public String getNombre() {
         return nombre;
     }

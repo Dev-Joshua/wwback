@@ -109,10 +109,25 @@
             <label
               for="email"
               class="form-label"
-              >Contraseña:</label
+              >E-mail:</label
             >
             <input
               type="text"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+
+          <div class="divContainer mb-2">
+            <label
+              for="contrasena"
+              class="form-label"
+              >Contraseña:</label
+            >
+            <input
+              type="password"
               class="form-control"
               id="contrasena"
               name="contrasena"
@@ -126,18 +141,23 @@
               class="form-label"
               >Rol:</label
             >
-            <input
-              type="text"
-              class="form-control"
-              id="rol"
-              name="rol"
-              required
-            />
+            <div>
+              <select
+                class="form-select"
+                th:field="${usuarioDto.rol}"
+              >
+                <option value="">Seleccionar</option>
+                <option value="CLIENTE">Cliente</option>
+                <option value="ENTRENADOR">Entrenador</option>
+                <option value="PASEADOR">Paseador</option>
+                <option value="CUIDADOR">Cuidador</option>
+              </select>
+            </div>
           </div>
           <div class="d-grid gap-2 col-6 mx-auto">
             <button
               type="submit"
-              class="btn btn-dark mt-3"
+              class="btn btn-dark mt-5 mb-3 py-3"
             >
               Crear Usuario
             </button>
