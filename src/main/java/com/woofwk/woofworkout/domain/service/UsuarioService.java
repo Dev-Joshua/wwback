@@ -26,8 +26,8 @@ public class UsuarioService {
         return userRepository.findAll();
     }
 
-    public Usuario getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public Usuario getUserById(Integer usuarioId) {
+        return userRepository.findById(usuarioId).orElse(null);
     }
 
     public Usuario createUser(Usuario user) {
@@ -42,7 +42,7 @@ public class UsuarioService {
     // }
 
     //Update
-    public Usuario updateUser(Long id, Usuario usuarioDetails) {
+    public Usuario updateUser(Integer id, Usuario usuarioDetails) {
         Usuario usuario = userRepository.findById(id).orElse(null);
         if (usuario != null) {
             usuario.setNombre(usuarioDetails.getNombre());
@@ -59,7 +59,7 @@ public class UsuarioService {
     }
 
     //Delete
-    public boolean deleteUser(Long id) {
+    public boolean deleteUser(Integer id) {
         Usuario usuario = userRepository.findById(id).orElse(null);
         if (usuario != null) {
             userRepository.delete(usuario);

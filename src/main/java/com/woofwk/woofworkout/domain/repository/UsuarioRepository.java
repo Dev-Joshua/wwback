@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.woofwk.woofworkout.models.Usuario;
 
-// @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
    
 }
 

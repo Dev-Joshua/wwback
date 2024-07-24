@@ -14,13 +14,15 @@ import com.woofwk.woofworkout.web.controllers.ConexionBD;
 
 
 
-@RestController
+// @RestController
+// @SpringBootApplication
+// @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class WoofworkoutApplication {
 
-	@Autowired
-	private ConexionBD conexionBD;
+	// @Autowired
+	// private ConexionBD conexionBD;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WoofworkoutApplication.class, args);
@@ -28,12 +30,12 @@ public class WoofworkoutApplication {
 	}
 
     
-    @Bean
-    CommandLineRunner demo() {
-        return (args) -> {
-            conexionBD.connect();
-        };
-    }
+    // @Bean
+    // CommandLineRunner demo() {
+    //     return (args) -> {
+    //         conexionBD.connect();
+    //     };
+    // }
     
     // @GetMapping("message")
     // public Message getMessage () {

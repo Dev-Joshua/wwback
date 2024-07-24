@@ -57,7 +57,7 @@ public class SolicitudController {
 
     @PostMapping("/{usuarioId}")
     public ResponseEntity<Solicitud> createQuery(
-            @PathVariable Long usuarioId,
+            @PathVariable Integer usuarioId,
             @RequestBody Map<String, Object> requestPayLoad) {
         
         Usuario user = userService.getUserById(usuarioId);

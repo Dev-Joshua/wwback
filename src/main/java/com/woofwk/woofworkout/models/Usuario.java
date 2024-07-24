@@ -30,7 +30,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Long id_usuario;
+    private Integer id_usuario;
     
     @Column(name = "nombre")
     private String nombre;
@@ -95,12 +95,20 @@ public class Usuario {
         this.mascotas = mascotas;
     }
 
-    public Long getId() {
+    // public Integer getId() {
+    //     return id_usuario;
+    // }
+    // public void setId(Integer id) {
+    //     this.id_usuario = id;
+    // }
+    public Integer getId_usuario() {
         return id_usuario;
     }
-    public void setId(Long id) {
-        this.id_usuario = id;
+
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
     }
+
     public Role getRol() {
         return rol;
     }
