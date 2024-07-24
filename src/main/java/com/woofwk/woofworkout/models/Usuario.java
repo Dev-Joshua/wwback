@@ -94,13 +94,7 @@ public class Usuario {
     public void setMascotas(List<Mascota> mascotas) {
         this.mascotas = mascotas;
     }
-
-    // public Integer getId() {
-    //     return id_usuario;
-    // }
-    // public void setId(Integer id) {
-    //     this.id_usuario = id;
-    // }
+    
     public Integer getId_usuario() {
         return id_usuario;
     }
@@ -109,51 +103,58 @@ public class Usuario {
         this.id_usuario = id_usuario;
     }
 
-    public Role getRol() {
-        return rol;
-    }
-    public void setRol(Role rol) {
-        this.rol = rol;
-    }
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
     public String getApellidos() {
         return apellidos;
     }
+
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+
     public String getDocumento_identidad() {
         return documento_identidad;
     }
+
     public void setDocumento_identidad(String documento_identidad) {
         this.documento_identidad = documento_identidad;
     }
+
     public String getDireccion() {
         return direccion;
     }
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
     public String getCelular() {
         return celular;
     }
+
     public void setCelular(String celular) {
         this.celular = celular;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getContrasena() {
         return contrasena;
     }
+
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
@@ -163,6 +164,14 @@ public class Usuario {
     // public void setMascota_id(Long mascota_id) {
     //     this.mascota_id = mascota_id;
     // }
+
+    public Role getRol() {
+        return rol;
+    }
+
+    public void setRol(Role rol) {
+        this.rol = rol;
+    }
 
     // public Set<Solicitud> getSolicitudes() {
     //     return solicitudes;

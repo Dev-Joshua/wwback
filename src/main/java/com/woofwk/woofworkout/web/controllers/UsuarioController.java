@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.woofwk.woofworkout.domain.dto.UsuarioDto;
 import com.woofwk.woofworkout.domain.repository.UsuarioRepository;
 import com.woofwk.woofworkout.domain.service.MascotaService;
 import com.woofwk.woofworkout.domain.service.UsuarioService;
@@ -33,6 +37,7 @@ public class UsuarioController {
 
 
     // Metodos
+
     // @GetMapping
     // public List<Usuario> getAllData() {
     //     return userService.getAllUsers();
@@ -45,9 +50,10 @@ public class UsuarioController {
 
         return "usuarios/index";
     }
+    
 
     // @GetMapping("/{id}")
-    // public Usuario getUseroByI  d(@PathVariable Integer id) {
+    // public Usuario getUseroById(@PathVariable Integer id) {
     //     return userService.getUserById(id);
     // }
     
@@ -57,6 +63,34 @@ public class UsuarioController {
     //     Usuario nuevoUsuario = userService.createUser(usuario);
     //     return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
     // }
+
+    //  @PostMapping("/create")
+    //  public String crearUsuario(@ModelAttribute("usuarioDto") UsuarioDto usuarioDto) {
+    //     Usuario usuario = new Usuario();
+        
+    //     // Copio los datos del DTO a la entidad Usuario
+    //     usuario.setNombre(usuarioDto.getNombre());
+    //     usuario.setApellidos(usuarioDto.getApellidos());
+    //     usuario.setDocumento_identidad(usuarioDto.getDocumento_identidad());
+    //     usuario.setDireccion(usuarioDto.getDireccion());
+    //     usuario.setCelular(usuarioDto.getCelular());
+    //     usuario.setEmail(usuarioDto.getEmail());
+    //     usuario.setContrasena(usuarioDto.getContrasena());
+    //     // usuario.setRol(usuarioDto.getRol());
+
+    //     userService.createUser(usuario); // Guarda el usuario en la base de datos
+
+    //     return "redirect:/usuarios";
+    // }
+
+    
+    @GetMapping("/crear")
+    public String formCreate(Model model) {
+        UsuarioDto usuarioDto = new UsuarioDto();
+        model.addAttribute("usuarioDto", usuarioDto);
+        return "usuarios/createUser";
+    }
+
 
     // @PutMapping("/{id}")
     // public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody Usuario usuarioDetails) {
