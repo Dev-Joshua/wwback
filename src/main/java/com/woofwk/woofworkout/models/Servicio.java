@@ -22,7 +22,7 @@ public class Servicio {
     
     //Variables de la clase
     @Id
-    private Long id_servicio;
+    private Integer id_servicio;
 
     private String nombre_servicio;
 
@@ -39,7 +39,7 @@ public class Servicio {
     private Set<Solicitud> solicitudes = new HashSet<>();
     
     // Getters & Setters
-    public Long getId_servicio() {
+    public Integer getId_servicio() {
         return id_servicio;
     }
 
@@ -51,7 +51,7 @@ public class Servicio {
         this.solicitudes = solicitudes;
     }
 
-    public void setId_servicio(Long id_servicio) {
+    public void setId_servicio(Integer id_servicio) {
         this.id_servicio = id_servicio;
     }
 

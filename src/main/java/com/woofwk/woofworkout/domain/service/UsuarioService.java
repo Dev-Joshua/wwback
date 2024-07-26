@@ -31,9 +31,9 @@ public class UsuarioService {
     }
 
     public Usuario createUser(Usuario user) {
-        Usuario savedUsuario = userRepository.save(user);
+        return userRepository.save(user);
 
-        return savedUsuario;
+       
     }
 
     // //Create
@@ -45,6 +45,7 @@ public class UsuarioService {
     public Usuario updateUser(Integer id, Usuario usuarioDetails) {
         Usuario usuario = userRepository.findById(id).orElse(null);
         if (usuario != null) {
+            usuario.setId_usuario(usuarioDetails.getId_usuario());
             usuario.setNombre(usuarioDetails.getNombre());
             usuario.setApellidos(usuarioDetails.getApellidos());
             usuario.setEmail(usuarioDetails.getEmail());

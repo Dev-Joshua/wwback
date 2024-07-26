@@ -4,6 +4,7 @@ import com.woofwk.woofworkout.models.Usuario.Role;
 
 
 public class UsuarioDto {
+    private Integer id_usuario;
     private String nombre;
     private String apellidos;
     private String documento_identidad;
@@ -63,4 +64,11 @@ public class UsuarioDto {
     public void setRol(Role rol) {
         this.rol = rol;
     }
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+  
 }

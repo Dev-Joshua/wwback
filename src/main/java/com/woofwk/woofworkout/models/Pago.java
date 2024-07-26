@@ -23,7 +23,7 @@ public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pago")
-    private Long id_pago;
+    private Integer id_pago;
 
     private Float monto;
     private LocalDateTime fechaPago;
@@ -38,11 +38,11 @@ public class Pago {
     // private Solicitud solicitud;
 
     // Getters & Setters
-    public Long getId_pago() {
+    public Integer getId_pago() {
         return id_pago;
     }
 
-    public void setId_pago(Long id_pago) {
+    public void setId_pago(Integer id_pago) {
         this.id_pago = id_pago;
     }
 

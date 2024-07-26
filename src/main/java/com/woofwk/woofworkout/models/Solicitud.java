@@ -27,7 +27,7 @@ public class Solicitud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_solicitud")
-    private Long id_solicitud;
+    private Integer id_solicitud;
 
     private LocalDateTime fecha_solicitud;
 
@@ -58,11 +58,11 @@ public class Solicitud {
         this.pago = pago;
     }
 
-    public Long getId_solicitud() {
+    public Integer getId_solicitud() {
         return id_solicitud;
     }
 
-    public void setId_solicitud(Long id_solicitud) {
+    public void setId_solicitud(Integer id_solicitud) {
         this.id_solicitud = id_solicitud;
     }
 

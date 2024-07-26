@@ -29,7 +29,7 @@ public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mascota")
-    private Long id_mascota;
+    private Integer id_mascota;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_mascota")
@@ -91,11 +91,11 @@ public class Mascota {
     }
 
     // Getters & Setters
-    public Long getId_mascota() {
+    public Integer getId_mascota() {
         return id_mascota;
     }
 
-    public void setId_mascota(Long id_mascota) {
+    public void setId_mascota(Integer id_mascota) {
         this.id_mascota = id_mascota;
     }
 

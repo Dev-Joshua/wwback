@@ -50,6 +50,9 @@
         class="btn btn-primary"
         >Crear Usuario</a
       >
+
+      <div id="alert-placeholder"></div>
+
       <table class="table">
         <thead>
           <tr>
@@ -79,12 +82,12 @@
             <td style="white-space: nowrap">
               <a
                 class="btn btn-primary btn-sm"
-                th:href="@{/usuarios/edit(id=${usuario.id_usuario})}"
+                th:href="@{/usuarios/editar(id=${usuario.id_usuario})}"
                 >Editar</a
               >
               <a
                 class="btn btn-danger btn-sm"
-                th:href="@{/usuarios/delete(id=${usuario.id_usuario})}"
+                th:href="@{/usuarios/eliminar(id=${usuario.id_usuario})}"
                 onclick="return confirm('¿Estas seguro?')"
                 >Eliminar</a
               >
@@ -93,6 +96,20 @@
         </tbody>
       </table>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var alertPlaceholder = document.getElementById('alert-placeholder');
+        var message = `Resultado: [[${message}]]`;
+        if (message) {
+          var alertDiv = document.createElement('div');
+          alertDiv.className = 'alert alert-success';
+          alertDiv.role = 'alert';
+          alertDiv.innerText = message;
+          alertPlaceholder.appendChild(alertDiv);
+        }
+      });
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

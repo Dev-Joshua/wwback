@@ -5,10 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,6 +24,7 @@ import com.woofwk.woofworkout.domain.service.UsuarioService;
 import com.woofwk.woofworkout.models.Mascota;
 import com.woofwk.woofworkout.models.Usuario;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -44,18 +50,12 @@ public class UsuarioController {
     //     return userService.getAllUsers();
     // }
 
-    // Metodo para mostrar el formulario de creacion
-    @GetMapping("/crear")
-    public String formCreate(Model model) {
-        UsuarioDto usuarioDto = new UsuarioDto();
-        model.addAttribute("usuarioDto", usuarioDto);
-        return "usuarios/createUser";
-    }
 
     // Metodo para obtener los usuarios de la base de datos
     @GetMapping({"", "/"})
     public String mostrarProductos(Model model) {
         List<Usuario> usuarios = userService.getAllUsers();
+        usuarios.sort(Comparator.comparing(Usuario::getId_usuario).reversed());
         model.addAttribute("usuarios", usuarios);
 
         return "usuarios/index";
@@ -66,6 +66,14 @@ public class UsuarioController {
     // public Usuario getUseroById(@PathVariable Integer id) {
     //     return userService.getUserById(id);
     // }
+
+    // Metodo para mostrar el formulario de creacion
+    @GetMapping("/crear")
+    public String formCreate(Model model) {
+        UsuarioDto usuarioDto = new UsuarioDto();
+        model.addAttribute("usuarioDto", usuarioDto);
+        return "usuarios/createUser";
+    }
     
 
     // @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
@@ -76,7 +84,7 @@ public class UsuarioController {
 
     // Metodo para crear un usuario mediante un POST desde la url indicada
      @PostMapping("/crear")
-     public String crearUsuario(@ModelAttribute("usuarioDto") UsuarioDto usuarioDto) {
+     public String crearUsuario(@ModelAttribute("usuarioDto") UsuarioDto usuarioDto, RedirectAttributes redirectAttributes) {
         Usuario usuario = new Usuario();
         
         // Copio los datos del DTO a la entidad Usuario
@@ -91,6 +99,7 @@ public class UsuarioController {
 
         // Registrar el nuevo usuario en la bd
         userService.createUser(usuario); 
+        redirectAttributes.addFlashAttribute("message", "Usuario creado con éxito");
 
         return "redirect:/usuarios";
     }
@@ -119,6 +128,57 @@ public class UsuarioController {
     //     return ResponseEntity.ok("Usuario actualizado exitosamente");
     // }
 
+    // Metodo para crear un usuario mediante un POST desde la url indicada
+     @GetMapping("/editar")
+     public String mostrarPaginaEdit(Model model, @RequestParam int id) {
+
+            Usuario usuario = userService.getUserById(id);
+            if (usuario == null) {
+                throw new IllegalArgumentException("Invalid user Id:" + id);
+            }
+
+            UsuarioDto usuarioDto = new UsuarioDto();
+            // usuarioDto.setId_usuario(usuarioDto.getId_usuario());
+            usuarioDto.setNombre(usuario.getNombre());
+            usuarioDto.setApellidos(usuario.getApellidos());
+            usuarioDto.setDocumento_identidad(usuario.getDocumento_identidad());
+            usuarioDto.setDireccion(usuario.getDireccion());
+            usuarioDto.setCelular(usuario.getCelular());
+            usuarioDto.setEmail(usuario.getEmail());
+            usuarioDto.setContrasena(usuario.getContrasena());
+            usuarioDto.setRol(usuario.getRol());
+
+            model.addAttribute("usuarioDto", usuarioDto);
+            // model.addAttribute("usuarioId", id);
+
+            return "usuarios/editUser";
+    
+    }
+
+     @PostMapping("editar")
+     public String actualiarUsuario(Model model, @RequestParam int id, @ModelAttribute("usuarioDto") UsuarioDto usuarioDto, RedirectAttributes redirectAttributes) {
+        
+        Usuario usuario = userService.getUserById(id);
+        // if (usuario == null) {
+        //     return "redirect:/usuarios";
+        // }
+    
+        usuario.setNombre(usuarioDto.getNombre());
+        usuario.setApellidos(usuarioDto.getApellidos());
+        usuario.setDocumento_identidad(usuarioDto.getDocumento_identidad());
+        usuario.setDireccion(usuarioDto.getDireccion());
+        usuario.setCelular(usuarioDto.getCelular());
+        usuario.setEmail(usuarioDto.getEmail());
+        usuario.setContrasena(usuarioDto.getContrasena());
+        usuario.setRol(usuarioDto.getRol());
+
+        
+        userService.updateUser(id, usuario); 
+        redirectAttributes.addFlashAttribute("message", "Usuario actualizado con éxito");
+
+        return "redirect:/usuarios";
+    }
+
     // @DeleteMapping("/{id}")
     // public ResponseEntity<String> deleteUsuario(@PathVariable Integer id) {
     //     Usuario usuario = userService.getUserById(id);
@@ -129,6 +189,21 @@ public class UsuarioController {
     //     userService.deleteUser(id);
     //     return ResponseEntity.ok("Usuario eliminado exitosamente");
     //     }
+
+    @GetMapping("/eliminar")
+    public String eliminarUsuario(@RequestParam int id, RedirectAttributes redirectAttributes) {
+
+        Usuario usuario = userService.getUserById(id);
+        if (usuario == null) {
+                throw new IllegalArgumentException("Invalid user Id:" + id);
+        };
+
+        userService.deleteUser(id);
+        redirectAttributes.addFlashAttribute("message", "Usuario eliminado con éxito");
+
+        return "redirect:/usuarios";
+
+    }
 
     // @GetMapping("/{id}/mascotas")
     // public ResponseEntity<List<Mascota>> obtenerMascotasPorUsuario(@PathVariable Integer id) {
