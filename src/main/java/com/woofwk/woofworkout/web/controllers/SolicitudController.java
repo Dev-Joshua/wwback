@@ -55,51 +55,52 @@ public class SolicitudController {
         return requestService.findByIdRequest(id);
     }
 
-    @PostMapping("/{usuarioId}")
-    public ResponseEntity<Solicitud> createQuery(
-            @PathVariable Integer usuarioId,
-            @RequestBody Map<String, Object> requestPayLoad) {
+    // @PostMapping("/{usuarioId}")
+    // public ResponseEntity<Solicitud> createQuery(
+    //         @PathVariable Integer usuarioId,
+    //         @RequestBody Map<String, Object> requestPayLoad) {
         
-        Usuario user = userService.getUserById(usuarioId);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    //     Usuario user = userService.getUserById(usuarioId);
+    //     if (user == null) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    //     }
 
-        Long mascotaId = ((Number) requestPayLoad.get("mascota_id")).longValue();
-        Mascota mascota = petService.getPetById(mascotaId);
-        if (mascota == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    //     Long mascotaId = ((Number) requestPayLoad.get("mascota_id")).longValue();
+    //     Mascota mascota = petService.getPetById(mascotaId);
+    //     if (mascota == null) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    //     }
 
-        Long servicioId = ((Number) requestPayLoad.get("servicio_id")).longValue();
-        Servicio servicio = serviceService.findById(servicioId);
-        if (servicio == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    //     Long servicioId = ((Number) requestPayLoad.get("servicio_id")).longValue();
+    //     Servicio servicio = serviceService.findById(servicioId);
+    //     if (servicio == null) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    //     }
 
-        Solicitud request = new Solicitud();
-        request.setFecha_solicitud(LocalDateTime.now());
-        // request.setUsuario(user);
-        request.setServicio(servicio);
-        request.setMascota(mascota);
-        request.setEstado((String) requestPayLoad.get("estado"));
+    //     Solicitud request = new Solicitud();
+    //     request.setFecha_solicitud(LocalDateTime.now());
+    //     // request.setUsuario(user);
+    //     request.setServicio(servicio);
+    //     request.setMascota(mascota);
+    //     request.setEstado((String) requestPayLoad.get("estado"));
 
       
-        // Map<String, Object> paymentLoad = (Map<String, Object>) requestPayLoad.get("pago");
-        // Pago pay = new Pago();
-        // pay.setMonto(((Number) paymentLoad.get("monto")).floatValue());
-        // pay.setFechaPago(LocalDateTime.now());
+    //     // Map<String, Object> paymentLoad = (Map<String, Object>) requestPayLoad.get("pago");
+    //     // Pago pay = new Pago();
+    //     // pay.setMonto(((Number) paymentLoad.get("monto")).floatValue());
+    //     // pay.setFechaPago(LocalDateTime.now());
 
-        Pago pay = new Pago();
-        pay.setMonto(servicio.getPrecio());
-        pay.setFechaPago(LocalDateTime.now());
+    //     Pago pay = new Pago();
+    //     pay.setMonto(servicio.getPrecio());
+    //     pay.setFechaPago(LocalDateTime.now());
 
-        request.setPago(pay);
+    //     request.setPago(pay);
 
-        Solicitud newRequest = requestService.createRequest(request);
+    //     Solicitud newRequest = requestService.createRequest(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(newRequest);
-    }
+    //     return ResponseEntity.status(HttpStatus.CREATED).body(newRequest);
+    // }
+    
     // public Solicitud createRequest(@RequestBody Solicitud solicitud) {
     //     return requestService.createRequest(solicitud);
     // }

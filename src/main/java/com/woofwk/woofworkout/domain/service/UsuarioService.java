@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.woofwk.woofworkout.domain.repository.ServicioRepository;
 import com.woofwk.woofworkout.domain.repository.UsuarioRepository;
-import com.woofwk.woofworkout.models.Servicio;
+// import com.woofwk.woofworkout.models.Servicio;
 import com.woofwk.woofworkout.models.Usuario;
 
-import jakarta.transaction.Transactional;
+// import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -30,17 +30,19 @@ public class UsuarioService {
         return userRepository.findById(usuarioId).orElse(null);
     }
 
+    
+    // //Create
     public Usuario createUser(Usuario user) {
         return userRepository.save(user);
 
        
     }
-
-    // //Create
     // public Usuario saveUser(Usuario usuario) {
-    //     return userRepository.save(usuario);
-    // }
+        //     return userRepository.save(usuario);
+        // }
 
+
+        
     //Update
     public Usuario updateUser(Integer id, Usuario usuarioDetails) {
         Usuario usuario = userRepository.findById(id).orElse(null);

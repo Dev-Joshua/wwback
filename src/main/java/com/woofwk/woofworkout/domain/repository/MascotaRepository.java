@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.woofwk.woofworkout.models.Mascota;
 
 @Repository
-public interface MascotaRepository extends JpaRepository<Mascota, Long>{
+public interface MascotaRepository extends JpaRepository<Mascota, Integer>{
 
 }

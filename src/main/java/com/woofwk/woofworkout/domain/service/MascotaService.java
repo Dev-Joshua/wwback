@@ -20,7 +20,7 @@ public class MascotaService {
     }
 
     //Obtener mascota por ID
-    public Mascota getPetById(Long id) {
+    public Mascota getPetById(Integer id) {
         return petRepository.findById(id).orElse(null);
     }
 
@@ -30,17 +30,20 @@ public class MascotaService {
     }
 
     //Actualizar una mascota existente
-    public Mascota updatePet(Long id, Mascota mascotaDetails) {
+    public Mascota updatePet(Integer id, Mascota mascotaDetails) {
         Mascota pet = petRepository.findById(id).orElse(null);
         if (pet != null) {
-            pet.setNombre(mascotaDetails.getNombre());
             pet.setTipo_mascota(mascotaDetails.getTipo_mascota());
-            pet.setRaza(mascotaDetails.getRaza());
+            pet.setNombre(mascotaDetails.getNombre());
             pet.setEdad(mascotaDetails.getEdad());
+            pet.setRaza(mascotaDetails.getRaza());
             pet.setPeso(mascotaDetails.getPeso());
+            pet.setTamano(mascotaDetails.getTamano());
+            pet.setSexo(mascotaDetails.getSexo());
             pet.setEsterilizado(mascotaDetails.getEsterilizado());
             pet.setDescripcion_mascota(mascotaDetails.getDescripcion_mascota());
             pet.setInfo_cuidado(mascotaDetails.getInfo_cuidado());
+            pet.setFoto_mascota(mascotaDetails.getFoto_mascota());
             // mascota.setUsuario(mascotaDetails.getUsuario());
 
             return petRepository.save(pet);
@@ -49,7 +52,7 @@ public class MascotaService {
     }
 
     //Eliminar una mascota
-    public boolean deletePet(Long id) {
+    public boolean deletePet(Integer id) {
         Mascota pet = petRepository.findById(id).orElse(null);
         if (pet != null) {
             petRepository.delete(pet);
