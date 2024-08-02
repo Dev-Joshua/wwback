@@ -1,12 +1,15 @@
 package com.woofwk.woofworkout.web.controllers;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +29,7 @@ import com.woofwk.woofworkout.models.Servicio;
 import com.woofwk.woofworkout.models.Solicitud;
 import com.woofwk.woofworkout.models.Usuario;
 
-@RestController
+@Controller
 @RequestMapping("/solicitudes")
 public class SolicitudController {
     @Autowired
@@ -44,16 +47,28 @@ public class SolicitudController {
     // @Autowired
     // private PagoService pagoService;
 
-    // Metodos para realizar un CRUD
-    @GetMapping
-    public List<Solicitud> getAllRequests() {
-        return requestService.getAll();
+    // Metodo para obtener las solicitudes de la base de datos
+    @GetMapping({"", "/"})
+    public String mostrarSolicitudes(Model model) {
+        List<Solicitud> solicitudes = requestService.getAll();
+        solicitudes.sort(Comparator.comparing(Solicitud::getId_solicitud).reversed());
+        model.addAttribute("solicitudes", solicitudes);
+
+        return "solicitudes/index";
     }
 
-    @GetMapping("/{id}")
-    public Solicitud getRequestById(@PathVariable Long id) {
-        return requestService.findByIdRequest(id);
-    }
+    // Metodos para API REST
+
+    // Metodos para realizar un CRUD
+    // @GetMapping
+    // public List<Solicitud> getAllRequests() {
+    //     return requestService.getAll();
+    // }
+
+    // @GetMapping("/{id}")
+    // public Solicitud getRequestById(@PathVariable Long id) {
+    //     return requestService.findByIdRequest(id);
+    // }
 
     // @PostMapping("/{usuarioId}")
     // public ResponseEntity<Solicitud> createQuery(

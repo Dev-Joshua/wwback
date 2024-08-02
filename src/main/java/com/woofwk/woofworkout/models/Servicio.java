@@ -25,7 +25,6 @@ public class Servicio {
     private Integer id_servicio;
 
     private String nombre_servicio;
-
     private String descripcion;
     private Float precio;
 

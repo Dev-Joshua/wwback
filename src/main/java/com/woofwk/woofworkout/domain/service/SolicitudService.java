@@ -38,7 +38,7 @@ public class SolicitudService {
         return requestRepository.save(request);
     }
 
-    // public void deleteById(Long id) {
-    //     requestRepository.deleteById(id);
-    // }
+    public void deleteById(Long id) {
+        requestRepository.deleteById(id);
+    }
 }

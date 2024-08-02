@@ -15,7 +15,7 @@ public class ServicioService {
     @Autowired
     private ServicioRepository serviceRepository;
 
-    public List<Servicio> findAll() {
+    public List<Servicio> getAll() {
         return serviceRepository.findAll();
     }
 

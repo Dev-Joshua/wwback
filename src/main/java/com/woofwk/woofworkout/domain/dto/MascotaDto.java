@@ -1,5 +1,6 @@
 package com.woofwk.woofworkout.domain.dto;
 
+import com.woofwk.woofworkout.models.Usuario;
 import com.woofwk.woofworkout.models.Mascota.Esterilizado;
 import com.woofwk.woofworkout.models.Mascota.Sex;
 import com.woofwk.woofworkout.models.Mascota.Tipo;
@@ -19,6 +20,7 @@ public class MascotaDto {
     private String descripcion_mascota;
     private String info_cuidado;
     private String foto_mascota;
+    private Usuario usuario;
 
 
     public Integer getId_mascota() {
@@ -93,7 +95,13 @@ public class MascotaDto {
     public void setFoto_mascota(String foto_mascota) {
         this.foto_mascota = foto_mascota;
     }
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     
 }

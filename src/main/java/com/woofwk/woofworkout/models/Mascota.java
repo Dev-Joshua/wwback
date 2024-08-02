@@ -226,11 +226,5 @@ public class Mascota {
     public void setSolicitudes(Set<Solicitud> solicitudes) {
         this.solicitudes = solicitudes;
     }
-
-    // public Object getId() {
-    //     throw new UnsupportedOperationException("Unimplemented method 'getId'");
-    // }
-
-
     
 }
